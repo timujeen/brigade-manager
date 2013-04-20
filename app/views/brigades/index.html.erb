@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing brigades</h1>
+
+<%= form_tag('/brigades', method: 'get') do %>
+  <p>Filter for brigades</p>
+  <div class="field">
+    <%= label_tag "Country" %><br />
+    <%= select_tag "Country", options_from_collection_for_select(Country.all, 'id', 'title') %>
+  </div>
+  <div class="field">
+    <%= label_tag "Jobs" %><br />
+    <%= select_tag "Jobs", options_from_collection_for_select(Job.all, 'id', 'title'), multiple: true %>
+  </div>
+  <div class="actions">
+    <%= submit_tag "Search" %>
+  </div>
+
+<% end %>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Count of workers</th>
+    <th>Price</th>
+    <th>Country</th>
+    <th>Jobs</th>
+
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @brigades.each do |brigade| %>
+  <tr>
+    <td><%= brigade.title %></td>
+    <td><%= brigade.count_of_workers %></td>
+    <td><%= brigade.price %></td>
+    <td><%= Country.find(brigade.country_id).title %></td>
+    <td><%= brigade.job_list %></td>
+    <td><%= link_to 'Show', brigade %></td>
+    <td><%= link_to 'Edit', edit_brigade_path(brigade) %></td>
+    <td><%= link_to 'Destroy', brigade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New brigade', new_brigade_path %> | 
+<%= link_to 'Job list', jobs_path %>
