@@ -6,7 +6,8 @@
   <p>Filter for brigades</p>
   <div class="field">
     <%= label_tag "Country" %><br />
-    <%= select_tag "Country", options_from_collection_for_select(Country.all, 'id', 'title') %>
+    <%= select_tag "Country", options_from_collection_for_select(Country.all, 'id', 'title'), 
+        prompt: "none" %>
   </div>
   <div class="field">
     <%= label_tag "Jobs" %><br />
